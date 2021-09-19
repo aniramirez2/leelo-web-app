@@ -15,14 +15,14 @@ const Home: NextPage = () => {
 
       <main >
        <Flex>
-         <Box w="65%" h="100vh">
+         <Box  width={['0', "65%"]} h="100vh">
             <Image src="/assets/images/cover.png" height="inherit"/>
          </Box>
-         <Box w="35%" backgroundColor="white" overflowY="hidden">
+         <Box width={["100%",  "35%"]} backgroundColor="white" overflowY="hidden">
            <Box my={6} textAlign="center">
              <Image src="/assets/images/Logo_Leelo.png" maxW="150px" m="auto"/>
            </Box>
-           <Box p={4}>
+           <Box p={4}> 
             <Tabs>
               <TabList>
                 <Tab w="50%">Registro</Tab>

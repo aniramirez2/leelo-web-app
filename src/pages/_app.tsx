@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider } from "@chakra-ui/react"
 
 import { extendTheme } from "@chakra-ui/react"
+import { AuthProvider } from '../contexts/AuthContext'
 // 2. Extend the theme to include custom colors, fonts, etc
 const colors = {
   brand: {
@@ -15,7 +16,9 @@ const theme = extendTheme({ colors })
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </ChakraProvider>
   )
 }

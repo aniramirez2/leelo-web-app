@@ -7,8 +7,10 @@ import {
   Button,
   Box
 } from "@chakra-ui/react"
+import {useRouter} from 'next/router';
 
 const Signup: React.FC = () => {
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -18,7 +20,7 @@ const Signup: React.FC = () => {
       pass: '',
     },
     onSubmit: (values: any) => {
-      alert(JSON.stringify(values, null, 2));
+      router.push('/dashboard');
     },
   });
   return (

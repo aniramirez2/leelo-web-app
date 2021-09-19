@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -7,14 +7,20 @@ import {
   Box
 } from "@chakra-ui/react"
 import { useFormik } from 'formik';
+import { AuthContext } from '../../contexts/AuthContext';
+import {useRouter} from 'next/router';
 
 const Login: React.FC = () => {
+  const router = useRouter()
+  const { singIn } = useContext(AuthContext) 
   const formik = useFormik({
     initialValues: {
       email: '',
       pass: '',
     },
     onSubmit: (values: any) => {
+      router.push('/dashboard');
+      singIn()
       alert(JSON.stringify(values, null, 2));
     },
   });
