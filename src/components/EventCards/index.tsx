@@ -1,30 +1,32 @@
-import { Box, Image, Badge, Text, Button,  ModalOverlay,
+import { Box, Image, Badge, Text, Button, Modal,
+  ModalOverlay,
   ModalContent,
   ModalHeader,
   Heading,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
-  Modal, } from '@chakra-ui/react';
+  Flex,
+  useDisclosure, } from '@chakra-ui/react';
 import React from 'react';
 import { StarIcon } from '@chakra-ui/icons'
 import CreditCradForm from '../CreditCradForm';
 
-
 // import { Container } from './styles';
 
-const BookCards: React.FC = () => {
+const EventCards: React.FC = () => {
   // Sample card from Airbnb
 
 function AirbnbExample() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const property = {
-    imageUrl: "https://books.google.com.co/books/content?id=Vb9IswEACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE71YiHPjLbZHx6b91AiJz5VPf47aYIq2N6kfu7Kma3U2SwRQE89O7GLjI0Dr5DDRad8qyCgku7u_iKrkpRobPX4lGYBSCfXQDHwaWEFK_XTFsge_GcEMln3rC_0kcOXDe5Nt5_9c",
+    imageUrl: "https://img1.wsimg.com/isteam/ip/184b797a-3167-46c7-80f7-f10f3bf61938/WhatsApp%20Image%202021-09-18%20at%206.11.34%20PM.jpeg/:/rs=w:1160,h:870",
     imageAlt: "Rear view of modern home with pool",
-    title: "El olvido que seremos",
-    author: "Hecto Abad faciolince",
-    pages: "328",
-    resume: `El 25 de agosto de 1987 Héctor Abad Gómez, médico y activista en pro de los derechos humanos, es asesinado en Medellín por los paramilitares.`,
+    title: "Club de lectura belen",
+    responsible: "Leelo",
+    places: "30",
+    available: "28",
+    resume: `Trascendemos la relación entre lector y escritor, buscando temas comunes para llevar al plano social a través del dialogo yla discusión colectiva`,
     reviewCount: 34,
     rating: 4,
   }
@@ -46,7 +48,7 @@ function AirbnbExample() {
             textTransform="uppercase"
             ml="2"
           >
-            {property.pages} paginas
+            {property.places} cupos &bull; {property.available} disponibles
           </Box>
         </Box>
 
@@ -61,8 +63,8 @@ function AirbnbExample() {
         </Box>
 
         <Box>
-          <Text>{property.author}</Text>
-          <Box as="span" color="gray.600" fontSize="sm">
+          <Text>{property.responsible}</Text>
+          <Box as="span" color="gray.600" fontSize="sm" >
             {property.resume}
           </Box>
         </Box>
@@ -79,7 +81,7 @@ function AirbnbExample() {
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
             {property.reviewCount} reviews
           </Box>
-          <Button colorScheme="facebook" size="sm" onClick={onOpen}>Alquilar</Button>
+          <Button colorScheme="facebook" size="sm" onClick={onOpen}>Participar</Button>
         </Box>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
@@ -89,11 +91,13 @@ function AirbnbExample() {
           <ModalCloseButton />
           <ModalBody>
             <Box>
-              <Heading size="lg" textAlign="center" color="blue.600">Hola!! Todavia no eres un suscriptor</Heading>
-              <Text my={5}>Para acceder a nuestros servicios de alquiler de libros, cobramos una suscripción mensual de 21.000 pesos colombianos, esto te dará acceso a alquiler un libro por mes.</Text>
-              <Box w="100%">
-                <CreditCradForm />
-              </Box>
+              <Heading size="lg" textAlign="center" color="blue.600">Hola!! Gracias por querer hacer parte de nuestra comunidad</Heading>
+              <Text my={5}>Recuerda que nuestros eventos son totalmente gratis, sinembargo para que puedas participar activamente de nuestros clubs de lectura te recomendamos que te suscribas a leelo para tener acceso a la biblioteca colectiva que te permite alquilar un libro mensualmente</Text>
+              
+              <Flex justifyContent="space-between" my={5}>
+                <Button colorScheme="facebook" variant="ghost">Entrar sin el libro</Button>
+                <Button colorScheme="facebook" >Entrar y suscribirme</Button>
+              </Flex>
             </Box>
           </ModalBody>
         </ModalContent>
@@ -104,4 +108,4 @@ function AirbnbExample() {
   return AirbnbExample();
 }
 
-export default BookCards;
+export default EventCards;

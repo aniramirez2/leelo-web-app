@@ -1,8 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Image, Box, Flex, Avatar, Menu, MenuButton, IconButton, MenuList, MenuItem, Heading,  } from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
+import {  Box, Flex,  Heading,  } from '@chakra-ui/react'
 import BookCards from '../components/BookCards'
+import EventCards from '../components/EventCards'
+import Header from '../components/Header'
 
 
 
@@ -18,32 +19,7 @@ const Dashboard: NextPage = () => {
 
       <main >
        <>
-       <Flex bgColor="facebook.600" p={4} justifyContent="space-between">
-       <Menu>
-          <MenuButton
-            as={IconButton}
-            aria-label="Options"
-            icon={<HamburgerIcon color="white"/>}
-            variant="gosth"
-          />
-          <Image src="/assets/images/Logo_Leelo.png" maxW="50px" m="auto"/>
-          <MenuList>
-            <MenuItem  command="⌘T">
-              New Tab
-            </MenuItem>
-            <MenuItem command="⌘N">
-              New Window
-            </MenuItem>
-            <MenuItem command="⌘⇧N">
-              Open Closed Tab
-            </MenuItem>
-            <MenuItem command="⌘O">
-              Open File...
-            </MenuItem>
-          </MenuList>
-        </Menu>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-       </Flex>
+       <Header/>
        <Box p={6}>
         <Box>
           <Heading size="md" my={5}>Biblioteca</Heading>
@@ -54,7 +30,7 @@ const Dashboard: NextPage = () => {
         <Box>
           <Heading size="md" my={5}>Eventos</Heading>
           <Flex overflowX="scroll" my={2}>
-            <BookCards/>
+            <EventCards/>
           </Flex>
         </Box>
        </Box>
