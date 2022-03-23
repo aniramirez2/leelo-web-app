@@ -3,8 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react"
 
 import { extendTheme } from "@chakra-ui/react"
 import { AuthProvider } from '../contexts/AuthContext'
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { SessionProvider } from "next-auth/react"
 
 const firebaseConfig = {
   apiKey: "AIzaSyAfTghnlu6e4m9ZsCvOoGPRTfqjJiHS9h4",
@@ -16,8 +15,6 @@ const firebaseConfig = {
   measurementId: "G-V6GQ8046M2"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 // 2. Extend the theme to include custom colors, fonts, etc
 const colors = {
   brand: {
@@ -28,13 +25,15 @@ const colors = {
 }
 const theme = extendTheme({ colors })
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <ChakraProvider theme={theme}>
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-    </ChakraProvider>
+    <SessionProvider session={session}>
+      <ChakraProvider theme={theme}>
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </ChakraProvider>
+    </SessionProvider>
   )
 }
 export default MyApp

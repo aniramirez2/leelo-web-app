@@ -1,16 +1,13 @@
 import React from 'react';
-import { Image, Box, Flex, Avatar, Menu, MenuButton, IconButton, MenuList, MenuItem, Text } from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { Image, Flex, Avatar, Menu, MenuList, MenuItem, Text, Button } from '@chakra-ui/react'
+import { useSession, signOut } from "next-auth/react"
 
 const Header: React.FC = () => {
+  const { data: session } = useSession();
+
   return (<Flex bgColor="facebook.600" p={4} justifyContent="space-between">
   <Menu>
-     <MenuButton
-       as={IconButton}
-       aria-label="Options"
-       icon={<HamburgerIcon color="white"/>}
-       variant="gosth"
-     />
+     <Text colorScheme="whiteAlpha" color="white">{session?.user?.email}</Text>
      <Image src="/assets/images/Logo_Leelo.png" maxW="50px" m="auto"/>
      <MenuList>
        <MenuItem  command="⌘T">
@@ -27,9 +24,10 @@ const Header: React.FC = () => {
        </MenuItem>
      </MenuList>
    </Menu>
-   <Flex alignItems="center">
-     <Text color="white" mr={3}>Plan básico</Text>
-    <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+   <Flex alignItems="center" cursor="pointer">
+     <Button onClick={signOut} variant="ghost" _hover={{background: 'transparent'}}>
+        <Avatar name={session?.user?.name || ''} src={session?.user?.image || 'https://www.gravatar.com/avatar/identicon'} />
+      </Button>
    </Flex>
   </Flex>);
 }

@@ -8,10 +8,11 @@ import {
   Box
 } from "@chakra-ui/react"
 import { useRouter } from 'next/router';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signIn } from "next-auth/react"
 
 const Signup: React.FC = () => {
   const router = useRouter()
+  
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -21,38 +22,14 @@ const Signup: React.FC = () => {
       pass: '',
     },
     onSubmit: (values: any) => {
-      router.push('/dashboard');
+      //router.push('/dashboard');
     },
   });
-  const auth = getAuth();
-  auth.languageCode = 'es';
-  const handleSignupWithFirebase = () => {
-    const provider = new GoogleAuthProvider();
 
-    signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      console.log("result", result);
-      // ...
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-    });
-  }
   return (
     <>
       <Box py={4} w="100%" >
-        <Button w="100%" onClick={handleSignupWithFirebase} type="submit" colorScheme="red">Registrarse Con Google</Button>
+        <Button w="100%" onClick={() => signIn()} type="submit" colorScheme="red">Registrarse Con Google</Button>
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <FormControl>

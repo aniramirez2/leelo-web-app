@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -9,9 +9,11 @@ import {
 import { useFormik } from 'formik';
 import { AuthContext } from '../../contexts/AuthContext';
 import {useRouter} from 'next/router';
+import { useSession } from 'next-auth/react';
 
 const Login: React.FC = () => {
   const router = useRouter()
+  const { data: session, status } = useSession();
   const { singIn } = useContext(AuthContext) 
   const formik = useFormik({
     initialValues: {
@@ -24,6 +26,9 @@ const Login: React.FC = () => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+  if(status === "authenticated") {
+    router.push('/dashboard')
+  }
   return (
     <form onSubmit={formik.handleSubmit}>
       <FormControl>
