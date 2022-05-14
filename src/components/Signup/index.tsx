@@ -8,7 +8,7 @@ import {
   Box
 } from "@chakra-ui/react"
 import { useRouter } from 'next/router';
-import { signIn } from "next-auth/react"
+import axios from "axios"
 
 const Signup: React.FC = () => {
   const router = useRouter()
@@ -16,22 +16,43 @@ const Signup: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       name: '',
+      lastName: '',
       email: '',
       phone: '',
       address: '',
       pass: '',
+      birthday: '',
+      city: '',
     },
-    onSubmit: (values: any) => {
-      //router.push('/dashboard');
+    onSubmit: async (values: any) => {      
+      try {
+        const response = await axios.post(`http://aws-leelo-alb-services-799188184.us-east-1.elb.amazonaws.com/accounts/api/v1/users`, {
+          firstName: formik.values.name,
+          lastName: formik.values.lastName,
+          email: formik.values.email,
+          birthdate: formik.values.birthday,
+          phone: formik.values.phone,
+          password: formik.values.pass,
+          address: {
+            street: formik.values.address,
+            city: formik.values.city,
+            country: "Colombia"
+          },
+          enabled: true,
+          createdDate: new Date(),
+        });
+      console.log("response", response);
+      alert("tu registro fue creado con exito")
+      } catch (err) {
+        console.log("error", err);
+        alert("No pudimos crear tu registro, por favor intenta mas tarde")
+      }
     },
   });
 
   return (
     <>
-      <Box py={4} w="100%" >
-        <Button w="100%" onClick={() => signIn()} type="submit" colorScheme="red">Registrarse Con Google</Button>
-      </Box>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} >
         <FormControl>
           <FormLabel htmlFor="name">Nombre</FormLabel>
           <Input
@@ -42,18 +63,41 @@ const Signup: React.FC = () => {
             value={formik.values.name}
           />
         </FormControl>
+
         <FormControl>
-          <FormLabel htmlFor="user">Email</FormLabel>
+        <FormLabel htmlFor="name" mt={2}>Apellidos</FormLabel>
           <Input
-            id="user"
-            name="user"
+            id="lastName"
+            name="lastName"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.lastName}
+          />
+        </FormControl>
+
+        <FormControl>
+        <FormLabel htmlFor="birthdate" mt={2}>Fecha de nacimiento</FormLabel>
+          <Input
+            id="birthday"
+            name="birthday"
+            type="date"
+            onChange={formik.handleChange}
+            value={formik.values.birthday}
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel htmlFor="email"  mt={2}>Email</FormLabel>
+          <Input
+            id="email"
+            name="email"
             type="email"
             onChange={formik.handleChange}
             value={formik.values.email}
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="phone">Telefono</FormLabel>
+          <FormLabel htmlFor="phone"  mt={2}>Telefono</FormLabel>
           <Input
             id="phone"
             name="phone"
@@ -63,7 +107,17 @@ const Signup: React.FC = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="address">Dirección</FormLabel>
+          <FormLabel htmlFor="city"  mt={2}>Ciudad</FormLabel>
+          <Input
+            id="city"
+            name="city"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.city}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="address"  mt={2}>Dirección</FormLabel>
           <Input
             id="address"
             name="address"
@@ -73,11 +127,11 @@ const Signup: React.FC = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="passwords">Contraseña</FormLabel>
+          <FormLabel htmlFor="passwords"  mt={2}>Contraseña</FormLabel>
           <Input
             id="pass"
             name="pass"
-            type="text"
+            type="password"
             onChange={formik.handleChange}
             value={formik.values.pass}
           />

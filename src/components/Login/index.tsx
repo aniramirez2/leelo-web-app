@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import { AuthContext } from '../../contexts/AuthContext';
 import {useRouter} from 'next/router';
 import { useSession } from 'next-auth/react';
+import { signIn } from "next-auth/react"
 
 const Login: React.FC = () => {
   const router = useRouter()
@@ -31,6 +32,10 @@ const Login: React.FC = () => {
   }
   return (
     <form onSubmit={formik.handleSubmit}>
+      <Box py={4} w="100%" >
+        <Button w="100%" onClick={() => signIn()} type="submit" colorScheme="red">Entrar Con Google</Button>
+      </Box>
+      {/*
       <FormControl>
         <FormLabel htmlFor="user">Email de Usuario</FormLabel>
         <Input
@@ -54,6 +59,7 @@ const Login: React.FC = () => {
       <Box py={4} float="right">
         <Button type="submit" colorScheme="facebook">Entrar</Button>
       </Box>
+      */}
     </form>
   )
 }

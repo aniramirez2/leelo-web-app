@@ -1,6 +1,5 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
-import { redirect } from "next/dist/server/api-utils"
 
 export default NextAuth({
   providers: [
@@ -19,15 +18,14 @@ export default NextAuth({
     encryption: true
   },
   callbacks: {
-    async jwt({token, account}) {
-      console.log("account", account)
-      console.log("token", token)
+    async jwt({token, account, user, session}) {
       if (account ?.accessToken) {
         token.accessToken = account.accessToken
       }
       return token;
     },
-    async redirect({url, _baseUrl}) {
+    async redirect({url, _baseUrl, user}) {
+      console.log("user 2", user)
       if (url === '/dashboard') {
         return Promise.resolve('/');
       }

@@ -14,11 +14,11 @@ const Home: NextPage = () => {
       </Head>
 
       <main >
-       <Flex h="100vh" >
+       <Flex>
          <Box  width={['0', "65%"]} h="100vh">
             <Image src="/assets/images/cover.png" height="inherit" />
          </Box>
-         <Box width={["100%",  "35%"]} backgroundColor="white" overflowY="hidden">
+         <Box width={["100%",  "35%"]} backgroundColor="white" h="100vh" overflowY="scroll">
            <Box mb={2} mt={4} textAlign="center">
              <Image src="/assets/images/Logo_Leelo.png" maxW="60px" m="auto"/>
            </Box>
