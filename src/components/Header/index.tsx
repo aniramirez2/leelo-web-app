@@ -25,7 +25,7 @@ const Header: React.FC = () => {
      </MenuList>
    </Menu>
    <Flex alignItems="center" cursor="pointer">
-     <Button onClick={signOut} variant="ghost" _hover={{background: 'transparent'}}>
+     <Button onClick={() => signOut} variant="ghost" _hover={{background: 'transparent'}}>
         <Avatar name={session?.user?.name || ''} src={session?.user?.image || 'https://www.gravatar.com/avatar/identicon'} />
       </Button>
    </Flex>
