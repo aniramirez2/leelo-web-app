@@ -4,5 +4,4 @@ const withImages = require('next-images')
 module.exports = withImages({
   reactStrictMode: true,
   esModule: true,
-  webpack5: true
 })

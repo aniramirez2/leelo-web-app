@@ -9,12 +9,13 @@ import { useSession } from 'next-auth/react'
 import {api} from '../services/api'
 
 
-const Dashboard: NextPage = (props) => {
+const Dashboard: NextPage = (props: any) => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
   if(status === 'unauthenticated') {
     router.push("/")
+    return null;
   } else {
     return (
       <div >

@@ -22,9 +22,10 @@ const Login: React.FC = () => {
       pass: '',
     },
     onSubmit: (values: any) => {
-      router.push('/dashboard');
-      singIn()
-      alert(JSON.stringify(values, null, 2));
+      singIn().then(() => {
+        console.log("user logged", )
+      })
+      
     },
   });
   if(status === "authenticated") {

@@ -1,17 +1,16 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react';
 
 export default async (req, res) => {
-  const session = await getSession({ req })
+	const session = await getSession({ req });
 
-  if (session) {
-    console.log("im here")
-    res.status(200).json({
-      message: 'You can access this content because you are signed in.',
-    })
-  } else {
-    res.status(403).json({
-      message:
-        'You must be sign in to view the protected content on this page.',
-    })
-  }
-}
+	if (session) {
+		console.log('im here');
+		res.status(200).json({
+			message: 'You can access this content because you are signed in.',
+		});
+	} else {
+		res.status(403).json({
+			message: 'You must be sign in to view the protected content on this page.',
+		});
+	}
+};
