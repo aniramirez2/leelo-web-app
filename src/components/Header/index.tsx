@@ -1,33 +1,34 @@
 import React from 'react';
-import { Image, Flex, Avatar, Menu, MenuList, MenuItem, Text, Button } from '@chakra-ui/react'
+import { Image, Flex, Avatar, Menu, MenuList, Text, MenuItem, Box, Button, MenuButton } from '@chakra-ui/react'
 import { useSession, signOut } from "next-auth/react"
 
 const Header: React.FC = () => {
   const { data: session } = useSession();
 
   return (<Flex bgColor="facebook.600" p={4} justifyContent="space-between">
-  <Menu>
-     <Text colorScheme="whiteAlpha" color="white">{session?.user?.email}</Text>
-     <Image src="/assets/images/Logo_Leelo.png" maxW="50px" m="auto"/>
-     <MenuList>
-       <MenuItem  command="⌘T">
-         New Tab
-       </MenuItem>
-       <MenuItem command="⌘N">
-         New Window
-       </MenuItem>
-       <MenuItem command="⌘⇧N">
-         Open Closed Tab
-       </MenuItem>
-       <MenuItem command="⌘O">
-         Open File...
-       </MenuItem>
-     </MenuList>
-   </Menu>
+  <Box>     
+     <Image src="/assets/images/Logo_Leelo.png" maxW="50px" m="auto"/>     
+   </Box>
    <Flex alignItems="center" cursor="pointer">
-     <Button onClick={() => signOut} variant="ghost" _hover={{background: 'transparent'}}>
-        <Avatar name={session?.user?.name || ''} src={session?.user?.image || 'https://www.gravatar.com/avatar/identicon'} />
-      </Button>
+    <Text colorScheme="whiteAlpha" color="white">{session?.user?.email}</Text>
+    <Menu>
+        <MenuButton 
+          as={Button} 
+          variant="ghost" 
+          _hover={{ bg: 'transparent' }}
+          _expanded={{ bg: 'transparent' }}
+          _focus={{ boxShadow: 'none' }} >
+          <Avatar name={session?.user?.name || ''} src={session?.user?.image || 'https://www.gravatar.com/avatar/identicon'} />
+        </MenuButton>
+        <MenuList>
+          <MenuItem>Download</MenuItem>
+          <MenuItem>Create a Copy</MenuItem>
+          <MenuItem>Mark as Draft</MenuItem>
+          <MenuItem>Delete</MenuItem>
+          <MenuItem>Attend a Workshop</MenuItem>
+          <MenuItem onClick={() => signOut}>Signout</MenuItem>
+        </MenuList>
+      </Menu>
    </Flex>
   </Flex>);
 }

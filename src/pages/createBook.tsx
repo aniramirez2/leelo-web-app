@@ -1,15 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import {  Box, Flex,  Heading,  } from '@chakra-ui/react'
-import BookCards from '../components/BookCards'
-import EventCards from '../components/EventCards'
 import Header from '../components/Header'
 import {useRouter} from 'next/router';
 import { useSession } from 'next-auth/react'
-import {api} from '../services/api'
 
 
-const Dashboard: NextPage = (props: any) => {
+const CreateBook: NextPage = (props: any) => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -30,16 +27,7 @@ const Dashboard: NextPage = (props: any) => {
         <Header/>
         <Box p={6}>
           <Box>
-            <Heading size="md" my={5}>Biblioteca</Heading>
-            <Flex overflowX="scroll" my={2}>
-              <BookCards />
-            </Flex>
-          </Box>
-          <Box>
-            <Heading size="md" my={5}>Eventos</Heading>
-            <Flex overflowX="scroll" my={2}>
-              <EventCards/>
-            </Flex>
+            Hello Im a form
           </Box>
         </Box>
         </>
@@ -52,4 +40,4 @@ const Dashboard: NextPage = (props: any) => {
   }
 }
 
-export default Dashboard;
+export default CreateBook;

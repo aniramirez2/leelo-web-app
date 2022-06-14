@@ -4,6 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { extendTheme } from "@chakra-ui/react"
 import { AuthProvider } from '../contexts/AuthContext'
 import { SessionProvider } from "next-auth/react"
+import { storeWrapper } from "../store";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAfTghnlu6e4m9ZsCvOoGPRTfqjJiHS9h4",
@@ -36,4 +37,4 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     </SessionProvider>
   )
 }
-export default MyApp
+export default storeWrapper.withRedux(MyApp);
